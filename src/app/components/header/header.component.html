@@ -1,0 +1,11 @@
+<header class="header">
+  <div class="currency-wrap" *ngFor="let currency of service.currenciesList">
+    <div
+      class="single-currency"
+      *ngIf="currency.cc === 'USD' || currency.cc === 'EUR'"
+    >
+      <p>{{ currency.cc }}</p>
+      <p>{{ currency.rate }}</p>
+    </div>
+  </div>
+</header>
