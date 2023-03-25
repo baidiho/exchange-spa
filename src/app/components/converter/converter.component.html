@@ -1,1 +1,64 @@
-<p>converter works!</p>
+<form
+  *ngIf="service.currenciesMap"
+  [formGroup]="curFormGroup"
+  (change)="onInputChange($event, curFormGroup)"
+  (input)="onInputChange($event, curFormGroup)"
+>
+  <fieldset
+    formGroupName="firstCur"
+    name="firstCur"
+    class="currency-input-fieldset"
+  >
+    <input
+      formControlName="curNum"
+      class="text-input"
+      type="number"
+      name="curNum"
+      min="0"
+      placeholder="Enter number of currency"
+    />
+    <select
+      formControlName="curType"
+      name="curType"
+      class="select-input"
+      required
+    >
+      <option
+        *ngFor="let option of service.currenciesMap | keyvalue"
+        [value]="option.key"
+      >
+        {{ option.key }}
+      </option>
+      <option disabled selected value="">Choose currency</option>
+    </select>
+  </fieldset>
+  <fieldset
+    formGroupName="secondCur"
+    class="currency-input-fieldset"
+    name="secondCur"
+  >
+    <input
+      formControlName="curNum"
+      class="text-input"
+      type="number"
+      name="curNum"
+      min="0"
+      placeholder="Enter number of currency"
+      [value]="1"
+    />
+    <select
+      formControlName="curType"
+      name="curType"
+      class="select-input"
+      required
+    >
+      <option
+        *ngFor="let option of service.currenciesMap | keyvalue; index as i"
+        [value]="option.key"
+      >
+        {{ option.key }}
+      </option>
+      <option disabled selected value="">Choose currency</option>
+    </select>
+  </fieldset>
+</form>

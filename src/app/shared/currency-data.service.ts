@@ -9,15 +9,13 @@ import { Injectable } from '@angular/core';
 })
 export class CurrencyDataService {
   public currenciesList: Array<CurrenciesData>;
+  public currenciesMap: Map<string, number> = new Map();
 
   constructor(public http: HttpClient) {}
-
-  /*request for all currencies that bank is provides */
 
   getData(): Observable<any> {
     return this.http.get(environment.apiURL, {
       responseType: 'json',
-      // params: { valcode: 'EUR' },
     });
   }
 }
