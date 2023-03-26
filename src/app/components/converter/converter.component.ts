@@ -20,26 +20,26 @@ export class ConverterComponent implements OnInit {
   });
 
   constructor(public service: CurrencyDataService, private fb: FormBuilder) {}
-  /* Есть над чем подумать */
+
   ngOnInit() {
-    let firstRequest = this.service.getData().subscribe(() => {
+    this.service.getData().subscribe(() => {
       this.curFormGroup.patchValue({
         firstCur: {
           curNum: '1',
           curType: 'UAH',
         },
         secondCur: {
-          curNum: `${(1 / this.service.currenciesMap.get('USD')).toFixed(3)}`,
+          curNum: `${(1 / this.service.curMap.get('USD')).toFixed(3)}`,
           curType: 'USD',
         },
       });
-      firstRequest.unsubscribe();
     });
   }
 
   onInputChange(e: any, form: FormGroup) {
     let name: string = e.target.parentNode.name;
     let relativeName: string = name == 'firstCur' ? 'secondCur' : 'firstCur';
+    // A  little bit validation
     if (form.value[name].curNum <= -1) {
       form.patchValue({
         [name]: {
@@ -52,16 +52,16 @@ export class ConverterComponent implements OnInit {
       form.value[name].curType &&
       form.value[relativeName].curType
     ) {
+      /* Execution is divide for parts on purpose. It`s more clear and readability  */
       let convertToUAH =
-        this.service.currenciesMap.get(form.value[name].curType) *
+        this.service.curMap.get(form.value[name].curType) *
         form.value[name].curNum;
-      let convertedValue = (
-        convertToUAH /
-        this.service.currenciesMap.get(form.value[relativeName].curType)
+      let convertToRelativeCur = (
+        convertToUAH / this.service.curMap.get(form.value[relativeName].curType)
       ).toFixed(3);
       form.patchValue({
         [relativeName]: {
-          curNum: `${convertedValue}`,
+          curNum: `${convertToRelativeCur}`,
         },
       });
     }

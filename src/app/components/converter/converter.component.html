@@ -1,5 +1,4 @@
 <form
-  *ngIf="service.currenciesMap"
   [formGroup]="curFormGroup"
   (change)="onInputChange($event, curFormGroup)"
   (input)="onInputChange($event, curFormGroup)"
@@ -15,7 +14,6 @@
       type="number"
       name="curNum"
       min="0"
-      placeholder="Enter number of currency"
     />
     <select
       formControlName="curType"
@@ -24,12 +22,11 @@
       required
     >
       <option
-        *ngFor="let option of service.currenciesMap | keyvalue"
+        *ngFor="let option of service.curMap | keyvalue"
         [value]="option.key"
       >
         {{ option.key }}
       </option>
-      <option disabled selected value="">Choose currency</option>
     </select>
   </fieldset>
   <fieldset
@@ -43,8 +40,6 @@
       type="number"
       name="curNum"
       min="0"
-      placeholder="Enter number of currency"
-      [value]="1"
     />
     <select
       formControlName="curType"
@@ -53,12 +48,11 @@
       required
     >
       <option
-        *ngFor="let option of service.currenciesMap | keyvalue; index as i"
+        *ngFor="let option of service.curMap | keyvalue"
         [value]="option.key"
       >
         {{ option.key }}
       </option>
-      <option disabled selected value="">Choose currency</option>
     </select>
   </fieldset>
 </form>
