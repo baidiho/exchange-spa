@@ -4,9 +4,7 @@
       class="single-currency"
       *ngIf="currency.cc === 'USD' || currency.cc === 'EUR'"
     >
-<!-- I think the better way is to use currency pipe.  But i have no possibilities to patch code right now.  comment by 27/03/2023 -->
-      <p>{{ currency.cc }}</p>
-      <p>{{ currency.rate }}</p>
+      <p>{{ currency.rate | currency : currency.cc : "code" }}</p>
     </div>
   </div>
 </header>
